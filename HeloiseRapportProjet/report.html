@@ -1,0 +1,450 @@
+**Final Project Report**
+
+Student name: Heloise Dupont de Dinechin
+
+Sciper number: 309161
+
+
+Final render
+============
+
+Here is my final render, produced with 512 samples per pixel:
+<div class="twentytwenty-container">
+    <img src="data/finalfinal.png" alt="" class="img-responsive">
+</div> <br>
+
+* Biscuits from [butter biscuits](84621LICENSE.html)
+* Table texture *Wood026* from https://cc0textures.com/
+* Card design from the famous bicycle game card, *Old Fan back design* from 1885 
+* Environment map *combination_room* from https://hdrihaven.com/
+* *Alice in Wonderland* rabbit engraving by Sir John Tenniel
+
+
+
+
+Motivation
+==========
+
+When thinking of dreams, I thought first about Alice in Wonderland: she falls asleep, and then lives some adventures in her dreamed world. 
+I also wanted to play with mirror, in particular with reflects, which can represent a dreamed reality.
+
+It happens that the second volume of *Alice in Wonderland* is titled "Through the looking glass", with an original engraving by Sir John Tenniel:
+<center>
+    <img src="data/fig2.jpg" alt="alice" style="width:560;">
+</center>
+
+Therefore, I wanted to represent a "dreamed reality" behind a mirror.
+Some images playing with this idea have already been produced:
+
+<center>
+    <img src="data/chess.png" alt="Chess" style="width:350;">
+</center>
+
+Inspired by that, my goal was to design a scene containing a table, with some objects on it, that won't reflect right: some textures or objects would appear.
+Idealy there will be objects recalling Alice in Wonderland: a chess set, a card game, the "drink me" bottle and the "eat me" biscuits.
+
+
+
+
+
+
+Feature list
+============
+
+<table>
+    <tr>
+        <th>Feature</th>
+        <th>Standard point count</th>
+        <th>Adjusted point count</th>
+        <th>Use in the scene</th>
+    </tr>
+    <tr>
+        <td>Textures or Procedural images</td>
+        <td>10</td>
+        <td>10</td>
+        <td>Textures can be used to almost any objects of my scene, and are needed to represent some objects (card game, for example)</td>
+    </tr>
+    <tr>
+        <td>Bump mapping / normal mapping</td>
+        <td>10</td>
+        <td>10</td>
+        <td>Bump maping can add realism to the wood materials of my scene.</td>
+    </tr>
+    <tr>
+        <td>Simple extra BSDFs</td>
+        <td>10</td>
+        <td>10</td>
+        <td>(rough) conductors can be used to render some metal objects, such as the corners of the mirror</td>
+    </tr>
+    <tr>
+        <td>(Beer-Lambert Law)</td>
+        <td>(10)</td>
+        <td>(0)</td>
+        <td>(I want to implement it (for beverages in glasses), but it will not give points, since I would like to implement "homogeneous media" feature)</td>
+    </tr>
+    <tr>
+        <td>Mesh design</td>
+        <td>10</td>
+        <td>10</td>
+        <td>I modelled almost all my meshes in Blender.</td>
+    </tr>
+
+    <!-- <tr>
+        <td>Basic Denoising</td>
+        <td>10</td>
+        <td>10</td>
+        <td>I would implement some of the objects of the scene.</td>
+    </tr> -->
+
+    <tr>
+        <td>Image Based Lighting</td>
+        <td>15</td>
+        <td>15</td>
+        <td>Image Based Lighting can add a lot of realism</td>
+    </tr>
+    <tr>
+        <td>Homogeneous participating media</td>
+        <td>30</td>
+        <td>25</td>
+        <td>It is firstly to use on some liquids of my scene. But I also used it for the marble chess queen</td>
+    </tr>
+    <!-- <tr>
+        <td>Beer-Lambert Law</td>
+        <td>10</td>
+        <td>10</td>
+    </tr> -->
+    <tr>
+        <td>Magic Mirror effect</td>
+        <td>0</td>
+        <td>0</td>
+        <td>Used to make objects appear behind the mirror</td>
+    </tr>
+    <tr>
+        <td><strong>Total</strong></td>
+        <td>85</td>
+        <td>80</td>
+    </tr>
+</table>
+
+
+
+Feature Description
+=========
+
+
+The scene used for testing is from [Benedikt Bitterli: MaterialTestBall](https://benedikt-bitterli.me/resources/). The environment map is [At the Window (Wells, UK) from  Bernhard Vogl](http://dativ.at/lightprobes/). The texture used are CastleBirck and Sandstone from https://texturehaven.com/ and Wood026 from https://cc0textures.com/.
+
+## Feature 1: Textures
+
+### Description
+!!! 
+    "Create spatially varying BSDF parameters using texture maps. This could involve textures
+    from an image file or procedurally generated​ textures."
+
+I chose to focus on textures from image files. The texture could be either a image which is repeated, or a texture designed specifically for an object.
+I used both in my scene: the first to add texture to the table, the second to add texture to the cards, for example.
+I also implemented some UV mapping useful when the UV coordinates are not given in the .obj. I implemented three UV mapping: spherical, cylindrical and planar; I added a checkerboard texture, useful for testing them.
+
+### Design
+* A new nori object had to be created: ETexture; the header describing it is *texture.h*. This header also contains the class *TextureMapping2D* and the functions to do the UV mapping (see also texture.cpp).
+* The first texture implemented are the *ConstantTexture* and the *Checkerboard*  in *bsdfs/constant.cpp* and *bsdfs/checkerboard.cpp*. The *Checkerboard* can take some parameters, such as the two colors, a scale and an offset.
+* Then, the class *ImageTexture* in *bsdfs/image.cpp* loads an exr image. It also takes a scale parameter.
+* The classes *diffuse* and *microfacet* were adapted: for diffuse, the albedo is a texture (by default constant). For microfacet, two textures can be used: one for the coefficient of diffusion $k_d$ and the other for the roughness $alpha$.
+
+
+### Validation
+
+* Here are some examples of UV mapping: the objects are mapped with the three types of UV Mapping: spherical for the sphere, cylindical for the interior object, and plannar for the ground plane.
+
+![Different UVMapping and checkerboard textures](data/UVMapping.png width="450")
+
+
+* Here is an example of an image texture applied on a sphere: diffuse, and using microfacet.
+
+<!-- ![Texture Diffuse](bricks.png width="410px")
+![Texture Microfacet](wood.png width="410px") -->
+<div align="center">
+
+    ![Diffuse texture](data/bricks.png)
+    ![Microfacet with textures](data/wood.png)
+</div>
+
+
+<!-- <center>
+    <img src="bricks.png" alt="UV Mapping" style="width:550;">
+    <img src="wood.png" alt="UV Mapping" style="width:550;">
+</center> -->
+
+
+
+* Then, a texture specific to an object can be applied, for example for the card player.
+<!-- ![Texture Diffuse](cardSolder.png width="100")
+![Texture Microfacet](rendercardsolder.png width="100")
+
+![Texture Microfacet](UVMapping.png width="500px") -->
+<center>
+    <img src="data/cardSolder.png" alt="UV Mapping" style="width:250;">
+    <img src="data/rendercardsolder.png" alt="UV Mapping" style="width:250;">
+</center>
+
+
+
+## Feature 2: Bump mapping / normal mapping
+
+### Description
+!!! 
+    "Model small surface irregularities by perturbing the shading coordinate frame based on a texture.
+    See PBRTv3 Chapter 9.3"
+
+I wanted to try both Normal Maps, which descript the orientation of the local normals with a 3 channels image, and Bump Maps, which are grey-scaled images which encodes the local displacement, and from which we can extract the normal.
+
+### Design
+
+* I created a new nori object, *EBumpMap*, defined in *bumpMap.h*.
+* Then I created two instances of bumpMaps: BumpTexture in *textures/bumpTexture.cpp* and NormalTexture in *NormalTexture.cpp*
+* Again, these two textures takes a filename to a exr and an optionnal scale.
+* For normalTexture, we simply convert the rgb color to a local normal. Then we use in *accel.cpp* the bump map and the normal of the geoFrame to compute the new normal.
+* For bumpTexture, we compute the differential in u and v from the geoframe; then we use the image to have the displacement (taking the differencial with the adjacent pixels) at a certain point. We choose to neglect the derivatives of the normals, because the displacement is expected to be small.
+* The bump map has to be attached directly to a mesh: it was also possible to attached it to a bsdf (to have a bumpM map attached for each bsdf), but it was not useful in my scene. Here, the new normal is computed in *accel.cpp*
+
+### Validation
+
+Here are some examples of BumpMaps, the first one using normalTexture and the second one BumpTexture.
+
+<center>
+    <img src="data/bumpmapping.png" alt="UV Mapping">
+    <img src="data/bumptexture.png" alt="UV Mapping">
+</center>
+
+
+
+
+
+## Feature 3: Simple BSDFs
+
+### Description
+
+We can implement new bsdfs: conductors, rough conductors, and rough dielectrics. The latter ones are described in the paper Microfacet Models for Refraction through Rough Surfaces (Walter et al. 2007)
+https://www.cs.cornell.edu/~srm/publications/EGSR07-btdf.pdf
+
+Rough conductors are used in my scene for the corners of the mirror and of the photo frame. Rough dielectrics are not used in my scene (and were not part of the feature evaluation :)).
+
+### Design
+
+I implemented three new classes:
+
+* Conductors in *bsdfs/conductors.cpp*: it ressembles the mirror class, except that the light reflected is tinted by the *fesnelConductor* coefficient. It has two parameters, m_eta and m_k, that are defined for every metal (often approximated because we are working in rgb and not with a continuous spectrum)
+
+* Rough Conductors in *bsdfs/roughConductor* As in microfacet, we sample the reflected light using Beckmann function. For computing the Fresnel Coefficient, we use the one for metal, which can deal with complex coefficient (as in the class conductor).
+
+* Rough Dilectric in *bsdfs/roughDielectrics*; it was implemented as described in the paper, using the Beckmann function. 
+
+* in *common.h*, a *MicrofacetHelper* class has been added; it contains the useful functions to compute the microfacet coefficients.
+
+
+### Validation
+
+* **Conductor**. Here is an example of a smooth gold material
+<div class="twentytwenty-container">
+    <img src="data/conductorgoldnori.png" alt="My implementation in Nori" class="img-responsive">
+    <img src="data/conductormitsubagold.png" alt="Mitsuba reference" class="img-responsive">
+</div> 
+
+* **Rough Conductor**: the warpTests are correct
+<center>
+    <img src="data/rougCOnductorSHowing.png" alt="UV Mapping" style="width:450;">
+    <!-- <img src="roughconductorpdf.png" alt="UV Mapping" style="width:450;"> -->
+</center>
+
+<!-- <img src="cond0.05-0.png" alt="UV Mapping" style="width:450;"> -->
+
+
+             <!-- |  
+:-------------------------:|:-------------------------:
+![$\alpha=0.1$, $\theta=0$](cond0.1-0.png)  |  ![$\alpha=0.1$, $\theta=0$](cond0.1-45.png)
+![$\alpha=0.3$, $\theta=0$](cond0.3-0.png)  |  ![$\alpha=0.3$, $\theta=0$](cond0.3-45.png)
+![$\alpha=0.05$, $\theta=0$](cond0.05-0.png)  |  ![$\alpha=0.05$, $\theta=0$](cond0.05-45.png) -->
+
+![$\alpha=0.05$, $\theta=0$](data/cond0.05-0.png) ![$\alpha=0.05$, $\theta=0$](data/cond0.05-45.png)
+![$\alpha=0.1$, $\theta=0$](data/cond0.1-0.png)  ![$\alpha=0.1$, $\theta=0$](data/cond0.1-45.png)
+![$\alpha=0.3$, $\theta=0$](data/cond0.3-0.png)  ![$\alpha=0.3$, $\theta=0$](data/cond0.3-45.png)
+
+
+* Here are two examples of rough conductors:
+Aluminium, alpha=0.03
+<div class="twentytwenty-container">
+    <img src="data/roughconductor.png" alt="My implementation in Nori" class="img-responsive">
+    <img src="data/roughconductormitsuba.png" alt="Mitsuba reference" class="img-responsive">
+</div> 
+Gold, alpha=0.01
+<div class="twentytwenty-container">
+    <img src="data/gold001nori.png" alt="My implementation in Nori" class="img-responsive">
+    <img src="data/roughconductorgolad001mitsuba.png" alt="Mitsuba reference" class="img-responsive">
+</div> 
+
+* **Rough Dielectric** (Bonus): the warptest is correct
+<center>
+    <img src="data/roughdielectricshow.png" alt="UV Mapping" style="width:330;">
+    <img src="data/roughdielectricpdf.png" alt="UV Mapping" style="width:330;">
+</center>
+
+![$\alpha=0.05$, $\theta=0$](data/diel0.05-0.png) ![$\alpha=0.05$, $\theta=0$](data/diel0.05-45.png)
+![$\alpha=0.1$, $\theta=0$](data/diel0.1-0.png)  ![$\alpha=0.1$, $\theta=0$](data/diel0.1-45.png)
+![$\alpha=0.3$, $\theta=0$](data/diel0.3-0.png)  ![$\alpha=0.3$, $\theta=0$](data/diel0.3-45.png)
+
+## Feature 4: Beer-Lambert Law
+
+See Homogeneous participating media. It is used for my liquid.
+
+## Feature 5: Mesh design
+
+I did implement the majority of the objects of my scene: the table, wall, bottle, cards, soldier cards, photo frame, chess queens, and plate.
+I also used some physical simulation for the cards to lay on the table.
+
+I also painted the texture when needed!
+<center>
+    <img src="data/designingcard.png" alt="Mesh Disign" style="width:500;">
+
+</center>
+
+## Feature 6:  Image Based Lighting
+
+### Description
+!!!
+    "Simulate natural illumination from a environment map texture."
+
+It is used in my scene to provide the lightings and the background.
+
+### Design
+ I implemented the Image Based Lighting as described in the pbr book.
+
+* The file *HSW.cpp* contains the class needed to deal with some environment map:
+    * The class *MipMap*, creating a MipMap from a BitMap.
+    * The class *HSWHelper*, which performs the hierarchical sample warping
+* The sampling is done as described in TD3: using mipmaps and hierarchical sample warping.
+* Then, a new instance of emitter is created, EnvLight in *envLight.cpp*. It implements the common functions of emitter, plus some function to go from a direction to a pixel, and from pixel to direction.
+* This emitter is added to the "envLights" of the scenes
+* Then, when doing the path tracing, if the ray intersects nothing, it calls the envLight and evaluate. Otherwize, it is just a simple emitter.
+* The envMap can have a transform toWord input, useful to define its orientation.
+
+### Validation
+
+The warptest is correct (it works very well when setting the same number of x and y samples for the histogram as there is of pixels):
+<center>
+    <img src="data/envlightwarptest.png" alt="WarpTest" style="width:800;">
+    <img src="data/envmapbigsamples.png" alt="WarpTest" style="width:800;">
+
+</center>
+
+<div class="twentytwenty-container">
+    <img src="data/envmapgoodnori.png" alt="My implementation in Nori" class="img-responsive">
+    <img src="data/envmapgoodmitsuba.png" alt="Mitsuba reference" class="img-responsive">
+</div> 
+
+## Feature 7: Homogeneous participating media
+
+### Description
+!!!
+    "Model multiple scattering and absorption in a participating medium. This can be used to model for example fog/god rays, colored liquids (e.g. orange juice), skin, translucent plastic, etc. If used right, this adds a lot of realism to a scene.
+    See PBRTv3 Chapter 11​, ​15"
+
+I used this feature both for the marble of the chess queen and for the liquid in the bottle.
+
+### Design
+
+* I created a new nori object: EMedium described in *medium.h*. I also added a *MediumQueryRecord*. A medium has to sample phase, distance, and evaluate them.
+* I created an instance of medium: *HomogeneousMedium*. It can deal with isotropic and anisotropic (function Henyey–Greenstein) phases. Some parameters can be set to do some approximations: with *isBeerLambert*, the function *samplePhase* do not change the direction ; with *isIsotropic*, *samplePhase* samples uniformly, adapting the $A_s$ with a factor (1-g) as seens in the course.
+* Path tracer: I mixed the path_mis with the volumetric path tracer described in the course. Indeed, I kept it simple when it is inside a medium: because of the interfaces, I couldn't benefit from a path mis when inside the medium. 
+* I implemented several volumetric path tracers. But considering my scene, the one that is useful is the *path_mis_vol_multi*, which can handle multiple (small) objets containing medium.
+* These objects need a bsdf attached, so I created a *medium_inter* bdsf that does nothing. It can also be used with dielectrics.
+
+### Validation
+
+Here are some results:
+
+* Some Chardonnay liquid ($\eta_{int}=1.5$) with and without the Beer Lambert option. Since g is almost 1, it should not change a lot:
+<div class="twentytwenty-container">
+    <img src="data/chardonnaynobeerlambert.png" alt="hg anisotropic" class="img-responsive">
+    <img src="data/chardonnaybeerlambert.png" alt="Beer-Lambert" class="img-responsive">
+</div> 
+The coefficient of absorption and scattering are the ones from mitsuba documentation ("Acquiring Scattering Properties of Participating Media by Dilution" by Narasimhan, Gupta, Donner, Ramamoorthi, Nayar, Jensen (SIGGRAPH 2006))).
+
+
+* A marble medium. A dieletric ($\eta_{int}=1.5$) is attached.
+<div class="twentytwenty-container">
+    <img src="data/marbletasse.png" alt="hg anisotropic" class="img-responsive">
+</div> 
+Again, the coefficient of absorption and scattering are the ones from mitsuba documentation.
+
+* Some smoke with a "medium_interface" bsdf, comparing the anisotropic and isotropic phases  with two different values of g: g=0.92 and g=0.5; when doing the anisotropic version, the cofficient of absoption is changed as done i the course. The smallest g is, the more similare the results are. The coefficient of absorption is set at 0.20, and of scattering at 0.15.
+<div class="twentytwenty-container">
+    <img src="data/smokeabs.png" alt="hg anisotropic g=0.92" class="anisotropic hg">
+    <img src="data/smokeiso.png" alt="isotropic g=0.92" class="img-responsive">
+    <img src="data/smokeaniso0.5.png" alt="hg anisotropic g=0.5" class="img-responsive">
+    <img src="data/smokeisotropic0.5.png" alt="isotropic g=0.5" class="img-responsive">
+</div> 
+
+
+* Here is some smoke but this time more scattering than absorbing (0.3 and 0.02). g=0.7.
+<div class="twentytwenty-container">
+    <img src="data/whitesmokeaniso.png" alt="anisotropic" class="img-responsive">
+    <img src="data/whitesmokeiso.png" alt="isotropic" class="img-responsive">
+</div> 
+
+
+(I had some troubles dealing with medium on mitsuba2, therefore I do not have any comparison)
+
+
+## Feature 8: Magic Mirror effect
+
+### Description
+
+The goal of this effect is to make an object appear only in the mirror. 
+
+### Design
+
+* I implemented a new integrator, *path_mis_mirror*, that contains a boolean indicating if a ray has gone behind the mirror
+* I added the property "isTheLookingGlass" and "isBehindmirror" to objetcs. I had to change the class *mesh.cpp*, *bsdf.cpp*,  *diffuse.cpp*, *mirror.cpp*
+* I also had to add new *rayIntersectMirror* functions, depending on the previous booleans. I added them in *scene.cpp*, *accel.cpp* and *mesh.cpp*
+* For the final render, I used the *path_vol_multi_mirror* which can deal both with objects behind mirror and with mediums.
+
+### Validation
+
+I implemented a very simple scene in homework 5, having some objects appearing only in the mirror:
+
+<center>
+    <img src="data/testscenetexture2.png" alt="Italian Trulli" style="width:550;">
+</center>
+
+The shelf is the mesh [Cabinet](www.blendswap.com/blends/view/25841), from blendswap.
+
+
+Bonus Image
+========
+I did render a second image, not sent for the competition, here it is! The environment map is ballroom, also from https://hdrihaven.com/, with 1024 samples per pixel. 
+<div class="twentytwenty-container">
+    <img src="data/norisceneFinal(4ecopie).png" alt="" class="img-responsive">
+</div> <br>
+
+Which one do you preffer?
+
+
+Feedback
+========
+
+<!-- It was a very interesting course! It can be very time consuming however, both because the code can be very hard to debug, and because it his hard to stop working on features, which can always be improved!  -->
+
+
+Thanks to the teaching assistants, who were so helpful at many time, and of course to Professor Wenzel Jakob for his lectures.
+
+
+<!--- Markdeep & image comparison library - probably no need to change anything below -->
+<style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="resources/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="resources/jquery.event.move.js"></script>
+<script src="resources/jquery.twentytwenty.js"></script>
+<link href="resources/offcanvas.css" rel="stylesheet">
+<link href="resources/twentytwenty.css" rel="stylesheet" type="text/css" />
+<script>
+$(window).load(function(){$(".twentytwenty-container").twentytwenty({default_offset_pct: 0.5});});
+</script>

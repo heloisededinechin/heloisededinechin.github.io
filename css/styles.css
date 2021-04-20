@@ -541,6 +541,13 @@ pre code {
   overflow-y: scroll;
 }
 
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* width: 50%; */
+}
+
 .container,
 .container-fluid,
 .container-xl,
