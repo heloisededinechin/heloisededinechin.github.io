@@ -1,3 +1,10 @@
+<meta charset="utf-8">
+
+<!-- Sliders -->
+<script type="module" src="https://unpkg.com/img-comparison-slider@3/dist/component/component.esm.js"></script>
+<script nomodule="" src="https://unpkg.com/img-comparison-slider@3/dist/component/component.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@3/dist/collection/styles/initial.css" />
+
 **Final Project Report**
 
 <!-- Student name: Heloise Dupont de Dinechin -->
@@ -245,10 +252,10 @@ I implemented three new classes:
 ### Validation
 
 * **Conductor**. Here is an example of a smooth gold material
-<div class="twentytwenty-container" before_label='January 2017' after_label= 'March 2017'>
-    <img src="data/conductorgoldnori.png" alt="My implementation in Nori">
-    <img src="data/conductormitsubagold.png" alt="Mitsuba reference">
-</div> 
+<img-comparison-slider>
+    <img slot="before" src="data/conductorgoldnori.png" alt="My implementation in Nori">
+    <img slot="after" src="data/conductormitsubagold.png" alt="Mitsuba reference">
+</img-comparison-slider>
 
 * **Rough Conductor**: the warpTests are correct
 <center>
@@ -259,7 +266,7 @@ I implemented three new classes:
 <!-- <img src="cond0.05-0.png" alt="UV Mapping" style="width:450;"> -->
 
 
-             <!-- |  
+<!-- |  
 :-------------------------:|:-------------------------:
 ![$\alpha=0.1$, $\theta=0$](cond0.1-0.png)  |  ![$\alpha=0.1$, $\theta=0$](cond0.1-45.png)
 ![$\alpha=0.3$, $\theta=0$](cond0.3-0.png)  |  ![$\alpha=0.3$, $\theta=0$](cond0.3-45.png)
@@ -272,15 +279,15 @@ I implemented three new classes:
 
 * Here are two examples of rough conductors:
 Aluminium, alpha=0.03
-<div class="twentytwenty-container">
-    <img src="data/roughconductor.png" alt="My implementation in Nori" class="img-responsive">
-    <img src="data/roughconductormitsuba.png" alt="Mitsuba reference" class="img-responsive">
-</div> 
+<img-comparison-slider>
+    <img slot="before" src="data/roughconductor.png" alt="My implementation in Nori" class="img-responsive">
+    <img slot="after" src="data/roughconductormitsuba.png" alt="Mitsuba reference" class="img-responsive">
+</img-comparison-slider>
 Gold, alpha=0.01
-<div class="twentytwenty-container">
-    <img src="data/gold001nori.png" alt="My implementation in Nori" class="img-responsive">
-    <img src="data/roughconductorgolad001mitsuba.png" alt="Mitsuba reference" class="img-responsive">
-</div> 
+<img-comparison-slider>
+    <img slot="before" src="data/gold001nori.png" alt="My implementation in Nori" class="img-responsive">
+    <img slot="after" src="data/roughconductorgolad001mitsuba.png" alt="Mitsuba reference" class="img-responsive">
+</img-comparison-slider>
 
 * **Rough Dielectric** (Bonus): the warptest is correct
 <center>
@@ -336,10 +343,10 @@ The warptest is correct (it works very well when setting the same number of x an
 
 </center>
 
-<div class="twentytwenty-container">
-    <img src="data/envmapgoodnori.png" alt="My implementation in Nori" class="img-responsive">
-    <img src="data/envmapgoodmitsuba.png" alt="Mitsuba reference" class="img-responsive">
-</div> 
+<img-comparison-slider>
+    <img slot="before" src="data/envmapgoodnori.png" alt="My implementation in Nori" class="img-responsive">
+    <img slot="after" src="data/envmapgoodmitsuba.png" alt="Mitsuba reference" class="img-responsive">
+</img-comparison-slider>
 
 ## Feature 7: Homogeneous participating media
 
@@ -363,10 +370,10 @@ I used this feature both for the marble of the chess queen and for the liquid in
 Here are some results:
 
 * Some Chardonnay liquid ($\eta_{int}=1.5$) with and without the Beer Lambert option. Since g is almost 1, it should not change a lot:
-<div class="twentytwenty-container">
-    <img src="data/chardonnaynobeerlambert.png" alt="hg anisotropic" class="img-responsive">
-    <img src="data/chardonnaybeerlambert.png" alt="Beer-Lambert" class="img-responsive">
-</div> 
+<img-comparison-slider>
+    <img slot="before" src="data/chardonnaynobeerlambert.png" alt="hg anisotropic" class="img-responsive">
+    <img slot="after" src="data/chardonnaybeerlambert.png" alt="Beer-Lambert" class="img-responsive">
+</img-comparison-slider>
 The coefficient of absorption and scattering are the ones from mitsuba documentation ("Acquiring Scattering Properties of Participating Media by Dilution" by Narasimhan, Gupta, Donner, Ramamoorthi, Nayar, Jensen (SIGGRAPH 2006))).
 
 
@@ -377,19 +384,21 @@ The coefficient of absorption and scattering are the ones from mitsuba documenta
 Again, the coefficient of absorption and scattering are the ones from mitsuba documentation.
 
 * Some smoke with a "medium_interface" bsdf, comparing the anisotropic and isotropic phases  with two different values of g: g=0.92 and g=0.5; when doing the anisotropic version, the cofficient of absoption is changed as done i the course. The smallest g is, the more similare the results are. The coefficient of absorption is set at 0.20, and of scattering at 0.15.
-<div class="twentytwenty-container">
-    <img src="data/smokeabs.png" alt="hg anisotropic g=0.92" class="anisotropic hg">
-    <img src="data/smokeiso.png" alt="isotropic g=0.92" class="img-responsive">
-    <img src="data/smokeaniso0.5.png" alt="hg anisotropic g=0.5" class="img-responsive">
-    <img src="data/smokeisotropic0.5.png" alt="isotropic g=0.5" class="img-responsive">
-</div> 
+<img-comparison-slider>
+    <img slot="before" src="data/smokeabs.png" alt="hg anisotropic g=0.92" class="anisotropic hg">
+    <img slot="after" src="data/smokeiso.png" alt="isotropic g=0.92" class="img-responsive">
+</img-comparison-slider>
+<img-comparison-slider>
+    <img slot="before" src="data/smokeaniso0.5.png" alt="hg anisotropic g=0.5" class="img-responsive">
+    <img slot="after" src="data/smokeisotropic0.5.png" alt="isotropic g=0.5" class="img-responsive">
+</img-comparison-slider>
 
 
 * Here is some smoke but this time more scattering than absorbing (0.3 and 0.02). g=0.7.
-<div class="twentytwenty-container">
-    <img src="data/whitesmokeaniso.png" alt="anisotropic" class="img-responsive">
-    <img src="data/whitesmokeiso.png" alt="isotropic" class="img-responsive">
-</div> 
+<img-comparison-slider>
+    <img slot="before" src="data/whitesmokeaniso.png" alt="anisotropic" class="img-responsive">
+    <img slot="after" src="data/whitesmokeiso.png" alt="isotropic" class="img-responsive">
+</img-comparison-slider>
 
 
 (I had some troubles dealing with medium on mitsuba2, therefore I do not have any comparison)
@@ -433,39 +442,7 @@ Which one do you prefer?
 Feedback
 ========
 
-<!-- It was a very interesting course! It can be very time consuming however, both because the code can be very hard to debug, and because it his hard to stop working on features, which can always be improved!  -->
-
-
 Thanks to the teaching assistants, who were so helpful at many time, and of course to Professor Wenzel Jakob for his lectures.
 
-
-<!--- Markdeep & image comparison library - probably no need to change anything below -->
-<!-- <style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="resources_old/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="resources_old/jquery.event.move.js"></script>
-<script src="resources_old/jquery.twentytwenty.js"></script>
-<link href="resources_old/offcanvas.css" rel="stylesheet">
-<link href="resources_old/twentytwenty.css" rel="stylesheet" type="text/css" />
-<script>
-$(window).load(function(){$(".twentytwenty-container").twentytwenty({default_offset_pct: 0.5});});
-</script> -->
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="resources/jquery.event.move.js"></script>
-<script src="resources/jquery.twentytwenty.js"></script>
-<link href="resources/offcanvas.css" rel="stylesheet">
-<link href="resources/twentytwenty.css" rel="stylesheet" type="text/css" />
-<script>var markdeepOptions = {onLoad: function() {$(".twentytwenty-container").twentytwenty({default_offset_pct: 0.5, move_slider_on_hover: true});} };</script>
-
-<!-- <link href="css/foundation.css" rel="stylesheet" type="text/css" />
-<link href="css/twentytwenty-no-compass.css" rel="stylesheet" type="text/css" />
-<script src="resources/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-<script src="resources/js/jquery.event.move.js" type="text/javascript"></script>
-<script src="resources/js/jquery.twentytwenty.js" type="text/javascript"></script>
-<link rel="stylesheet" href="resources/css/twentytwenty.css" type="text/css" media="screen" /> -->
-
 <script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
-<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
-
+<script>window.alreadyProcessedMarkdeep || (document.body.style.visibility = "visible")</script>
