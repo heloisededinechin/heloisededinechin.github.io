@@ -244,11 +244,12 @@ I implemented three new classes:
 
 ### Validation
 
-* **Conductor**. Here is an example of a smooth gold material
+* **Conductor**. Here is an example of a smooth gold material.
 <div class="twentytwenty-container" before_label='January 2017' after_label= 'March 2017'>
     <img src="data/conductorgoldnori.png" alt="My implementation in Nori">
     <img src="data/conductormitsubagold.png" alt="Mitsuba reference">
 </div> 
+<center>*Left is my implementation in Nori, right Mitsuba reference*</center>
 
 * **Rough Conductor**: the warpTests are correct
 <center>
@@ -276,17 +277,23 @@ Aluminium, alpha=0.03
     <img src="data/roughconductor.png" alt="My implementation in Nori" class="img-responsive">
     <img src="data/roughconductormitsuba.png" alt="Mitsuba reference" class="img-responsive">
 </div> 
+<center>*Left is my implementation in Nori, right Mitsuba reference*</center>
+
 Gold, alpha=0.01
 <div class="twentytwenty-container">
     <img src="data/gold001nori.png" alt="My implementation in Nori" class="img-responsive">
     <img src="data/roughconductorgolad001mitsuba.png" alt="Mitsuba reference" class="img-responsive">
 </div> 
+<center>*Left is my implementation in Nori, right Mitsuba reference*</center>
+
 
 * **Rough Dielectric** (Bonus): the warptest is correct
 <center>
     <img src="data/roughdielectricshow.png" alt="UV Mapping" style="width:330;">
     <img src="data/roughdielectricpdf.png" alt="UV Mapping" style="width:330;">
 </center>
+<center>*Left is my implementation in Nori, right Mitsuba reference*</center>
+
 
 ![$\alpha=0.05$, $\theta=0$](data/diel0.05-0.png) ![$\alpha=0.05$, $\theta=0$](data/diel0.05-45.png)
 ![$\alpha=0.1$, $\theta=0$](data/diel0.1-0.png)  ![$\alpha=0.1$, $\theta=0$](data/diel0.1-45.png)
@@ -340,6 +347,8 @@ The warptest is correct (it works very well when setting the same number of x an
     <img src="data/envmapgoodnori.png" alt="My implementation in Nori" class="img-responsive">
     <img src="data/envmapgoodmitsuba.png" alt="Mitsuba reference" class="img-responsive">
 </div> 
+<center>*Left My implementation in Nori, right Mitsuba reference*</center>
+
 
 ## Feature 7: Homogeneous participating media
 
@@ -367,6 +376,8 @@ Here are some results:
     <img src="data/chardonnaynobeerlambert.png" alt="hg anisotropic" class="img-responsive">
     <img src="data/chardonnaybeerlambert.png" alt="Beer-Lambert" class="img-responsive">
 </div> 
+<center>*Left is hg anisotropic, right Beer-Lambert*</center>
+
 The coefficient of absorption and scattering are the ones from mitsuba documentation ("Acquiring Scattering Properties of Participating Media by Dilution" by Narasimhan, Gupta, Donner, Ramamoorthi, Nayar, Jensen (SIGGRAPH 2006))).
 
 
@@ -380,9 +391,14 @@ Again, the coefficient of absorption and scattering are the ones from mitsuba do
 <div class="twentytwenty-container">
     <img src="data/smokeabs.png" alt="hg anisotropic g=0.92" class="anisotropic hg">
     <img src="data/smokeiso.png" alt="isotropic g=0.92" class="img-responsive">
+</div>
+<center>*Left hg anisotropic g=0.92, right isotropic g=0.92*</center>
+<div class="twentytwenty-container">
     <img src="data/smokeaniso0.5.png" alt="hg anisotropic g=0.5" class="img-responsive">
     <img src="data/smokeisotropic0.5.png" alt="isotropic g=0.5" class="img-responsive">
 </div> 
+<center>*Left hg anisotropic g=0.5, right isotropic g=0.5*</center>
+
 
 
 * Here is some smoke but this time more scattering than absorbing (0.3 and 0.02). g=0.7.
@@ -390,6 +406,8 @@ Again, the coefficient of absorption and scattering are the ones from mitsuba do
     <img src="data/whitesmokeaniso.png" alt="anisotropic" class="img-responsive">
     <img src="data/whitesmokeiso.png" alt="isotropic" class="img-responsive">
 </div> 
+<center>*Left anisotropic g=0.5, right isotropic*</center>
+
 
 
 (I had some troubles dealing with medium on mitsuba2, therefore I do not have any comparison)
