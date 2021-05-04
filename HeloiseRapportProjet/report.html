@@ -5,7 +5,7 @@
 <script nomodule="" src="https://unpkg.com/img-comparison-slider@3/dist/component/component.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@3/dist/collection/styles/initial.css" />
 
-**Final Project Report**
+**Advanced Computer Graphics: Project Report**
 
 <!-- Student name: Heloise Dupont de Dinechin -->
 
@@ -256,6 +256,7 @@ I implemented three new classes:
     <img slot="before" src="data/conductorgoldnori.png" alt="My implementation in Nori">
     <img slot="after" src="data/conductormitsubagold.png" alt="Mitsuba reference">
 </img-comparison-slider>
+<center>*Left is my implementation in Nori, right Mitsuba reference*</center>
 
 * **Rough Conductor**: the warpTests are correct
 <center>
@@ -279,21 +280,28 @@ I implemented three new classes:
 
 * Here are two examples of rough conductors:
 Aluminium, alpha=0.03
+
 <img-comparison-slider>
     <img slot="before" src="data/roughconductor.png" alt="My implementation in Nori" class="img-responsive">
     <img slot="after" src="data/roughconductormitsuba.png" alt="Mitsuba reference" class="img-responsive">
 </img-comparison-slider>
+<center>*Left is my implementation in Nori, right Mitsuba reference*</center>
+
 Gold, alpha=0.01
 <img-comparison-slider>
     <img slot="before" src="data/gold001nori.png" alt="My implementation in Nori" class="img-responsive">
     <img slot="after" src="data/roughconductorgolad001mitsuba.png" alt="Mitsuba reference" class="img-responsive">
 </img-comparison-slider>
+<center>*Left is my implementation in Nori, right Mitsuba reference*</center>
+
 
 * **Rough Dielectric** (Bonus): the warptest is correct
 <center>
     <img src="data/roughdielectricshow.png" alt="UV Mapping" style="width:330;">
     <img src="data/roughdielectricpdf.png" alt="UV Mapping" style="width:330;">
 </center>
+<center>*Left is my implementation in Nori, right Mitsuba reference*</center>
+
 
 ![$\alpha=0.05$, $\theta=0$](data/diel0.05-0.png) ![$\alpha=0.05$, $\theta=0$](data/diel0.05-45.png)
 ![$\alpha=0.1$, $\theta=0$](data/diel0.1-0.png)  ![$\alpha=0.1$, $\theta=0$](data/diel0.1-45.png)
@@ -348,6 +356,9 @@ The warptest is correct (it works very well when setting the same number of x an
     <img slot="after" src="data/envmapgoodmitsuba.png" alt="Mitsuba reference" class="img-responsive">
 </img-comparison-slider>
 
+<center>*Left My implementation in Nori, right Mitsuba reference*</center>
+
+
 ## Feature 7: Homogeneous participating media
 
 ### Description
@@ -370,10 +381,14 @@ I used this feature both for the marble of the chess queen and for the liquid in
 Here are some results:
 
 * Some Chardonnay liquid ($\eta_{int}=1.5$) with and without the Beer Lambert option. Since g is almost 1, it should not change a lot:
+
 <img-comparison-slider>
     <img slot="before" src="data/chardonnaynobeerlambert.png" alt="hg anisotropic" class="img-responsive">
     <img slot="after" src="data/chardonnaybeerlambert.png" alt="Beer-Lambert" class="img-responsive">
 </img-comparison-slider>
+
+<center>*Left is hg anisotropic, right Beer-Lambert*</center>
+
 The coefficient of absorption and scattering are the ones from mitsuba documentation ("Acquiring Scattering Properties of Participating Media by Dilution" by Narasimhan, Gupta, Donner, Ramamoorthi, Nayar, Jensen (SIGGRAPH 2006))).
 
 
@@ -384,6 +399,7 @@ The coefficient of absorption and scattering are the ones from mitsuba documenta
 Again, the coefficient of absorption and scattering are the ones from mitsuba documentation.
 
 * Some smoke with a "medium_interface" bsdf, comparing the anisotropic and isotropic phases  with two different values of g: g=0.92 and g=0.5; when doing the anisotropic version, the cofficient of absoption is changed as done i the course. The smallest g is, the more similare the results are. The coefficient of absorption is set at 0.20, and of scattering at 0.15.
+
 <img-comparison-slider>
     <img slot="before" src="data/smokeabs.png" alt="hg anisotropic g=0.92" class="anisotropic hg">
     <img slot="after" src="data/smokeiso.png" alt="isotropic g=0.92" class="img-responsive">
@@ -392,6 +408,7 @@ Again, the coefficient of absorption and scattering are the ones from mitsuba do
     <img slot="before" src="data/smokeaniso0.5.png" alt="hg anisotropic g=0.5" class="img-responsive">
     <img slot="after" src="data/smokeisotropic0.5.png" alt="isotropic g=0.5" class="img-responsive">
 </img-comparison-slider>
+<center>*Left hg anisotropic g=0.5, right isotropic g=0.5*</center>
 
 
 * Here is some smoke but this time more scattering than absorbing (0.3 and 0.02). g=0.7.
@@ -399,6 +416,8 @@ Again, the coefficient of absorption and scattering are the ones from mitsuba do
     <img slot="before" src="data/whitesmokeaniso.png" alt="anisotropic" class="img-responsive">
     <img slot="after" src="data/whitesmokeiso.png" alt="isotropic" class="img-responsive">
 </img-comparison-slider>
+<center>*Left anisotropic g=0.5, right isotropic*</center>
+
 
 
 (I had some troubles dealing with medium on mitsuba2, therefore I do not have any comparison)
