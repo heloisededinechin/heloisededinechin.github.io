@@ -9,9 +9,9 @@ Final render
 ============
 
 Here is my final render, produced with 512 samples per pixel:
-<div class="twentytwenty-container">
-    <img src="data/finalfinal.png" alt="" class="img-responsive">
-</div> <br>
+<center>
+<img src="data/finalfinal.png" alt="" class="img-responsive">
+</center>
 
 * Biscuits from [butter biscuits](84621LICENSE.html)
 * Table texture *Wood026* from https://cc0textures.com/
@@ -245,9 +245,9 @@ I implemented three new classes:
 ### Validation
 
 * **Conductor**. Here is an example of a smooth gold material
-<div class="twentytwenty-container">
-    <img src="data/conductorgoldnori.png" alt="My implementation in Nori" class="img-responsive">
-    <img src="data/conductormitsubagold.png" alt="Mitsuba reference" class="img-responsive">
+<div class="twentytwenty-container" before_label='January 2017' after_label= 'March 2017'>
+    <img src="data/conductorgoldnori.png" alt="My implementation in Nori">
+    <img src="data/conductormitsubagold.png" alt="Mitsuba reference">
 </div> 
 
 * **Rough Conductor**: the warpTests are correct
@@ -371,9 +371,9 @@ The coefficient of absorption and scattering are the ones from mitsuba documenta
 
 
 * A marble medium. A dieletric ($\eta_{int}=1.5$) is attached.
-<div class="twentytwenty-container">
-    <img src="data/marbletasse.png" alt="hg anisotropic" class="img-responsive">
-</div> 
+<center>
+    <img src="data/marbletasse.png" alt="hg anisotropic" class="img-responsive">    
+</center>
 Again, the coefficient of absorption and scattering are the ones from mitsuba documentation.
 
 * Some smoke with a "medium_interface" bsdf, comparing the anisotropic and isotropic phases  with two different values of g: g=0.92 and g=0.5; when doing the anisotropic version, the cofficient of absoption is changed as done i the course. The smallest g is, the more similare the results are. The coefficient of absorption is set at 0.20, and of scattering at 0.15.
@@ -422,11 +422,12 @@ The shelf is the mesh [Cabinet](www.blendswap.com/blends/view/25841), from blend
 Bonus Image
 ========
 I did render a second image, not sent for the competition, here it is! The environment map is ballroom, also from https://hdrihaven.com/, with 1024 samples per pixel. 
-<div class="twentytwenty-container">
+<center>
     <img src="data/norisceneFinal(4ecopie).png" alt="" class="img-responsive">
-</div> <br>
+</center>
+<!-- </div> <br> -->
 
-Which one do you preffer?
+Which one do you prefer?
 
 
 Feedback
@@ -439,12 +440,32 @@ Thanks to the teaching assistants, who were so helpful at many time, and of cour
 
 
 <!--- Markdeep & image comparison library - probably no need to change anything below -->
-<style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="resources/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- <style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="resources_old/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="resources_old/jquery.event.move.js"></script>
+<script src="resources_old/jquery.twentytwenty.js"></script>
+<link href="resources_old/offcanvas.css" rel="stylesheet">
+<link href="resources_old/twentytwenty.css" rel="stylesheet" type="text/css" />
+<script>
+$(window).load(function(){$(".twentytwenty-container").twentytwenty({default_offset_pct: 0.5});});
+</script> -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="resources/jquery.event.move.js"></script>
 <script src="resources/jquery.twentytwenty.js"></script>
 <link href="resources/offcanvas.css" rel="stylesheet">
 <link href="resources/twentytwenty.css" rel="stylesheet" type="text/css" />
-<script>
-$(window).load(function(){$(".twentytwenty-container").twentytwenty({default_offset_pct: 0.5});});
-</script>
+<script>var markdeepOptions = {onLoad: function() {$(".twentytwenty-container").twentytwenty({default_offset_pct: 0.5, move_slider_on_hover: true});} };</script>
+
+<!-- <link href="css/foundation.css" rel="stylesheet" type="text/css" />
+<link href="css/twentytwenty-no-compass.css" rel="stylesheet" type="text/css" />
+<script src="resources/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="resources/js/jquery.event.move.js" type="text/javascript"></script>
+<script src="resources/js/jquery.twentytwenty.js" type="text/javascript"></script>
+<link rel="stylesheet" href="resources/css/twentytwenty.css" type="text/css" media="screen" /> -->
+
+<script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
+<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+

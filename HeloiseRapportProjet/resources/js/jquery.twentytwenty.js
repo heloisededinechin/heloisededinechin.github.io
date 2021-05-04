@@ -4,8 +4,8 @@
     var options = $.extend({
       default_offset_pct: 0.5,
       orientation: 'horizontal',
-      before_label: 'Before42',
-      after_label: 'After42',
+      before_label: 'Before',
+      after_label: 'After',
       no_overlay: false,
       move_slider_on_hover: false,
       move_with_handle_only: true,
